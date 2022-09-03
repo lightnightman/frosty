@@ -45,12 +45,14 @@ class IRCMessage {
     if (ircMessage.message == null) {
       messages.clear();
       bufferedMessages.clear();
-      messages.add(IRCMessage.createNotice(message: 'Chat was cleared by a moderator'));
+      messages.add(IRCMessage.createNotice(message: 'Chat was cleared by a moderator.'));
       return;
     }
 
     final bannedUser = ircMessage.message;
     final banDuration = ircMessage.tags['ban-duration'];
+
+    messages.add(IRCMessage.createNotice(message: '$bannedUser was ${banDuration == null ? 'permanently banned.' : 'timed out for ${banDuration}s.'}'));
 
     // Search the messages for the banned/timed-out user.
     messages.asMap().forEach((i, message) {
@@ -158,7 +160,7 @@ class IRCMessage {
 
     final ffzUserBadges = ffzUserToBadges[tags['user-id']];
     final twitchBadges = tags['badges']?.split(',');
-    // Pasrse and add the Twitch badges to the span if they exist.
+    // Parse and add the Twitch badges to the span if they exist.
     if (twitchBadges != null) {
       for (final badge in twitchBadges) {
         final badgeInfo = twitchBadgeToObject[badge];
