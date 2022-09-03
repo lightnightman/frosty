@@ -185,10 +185,13 @@ class ChatMessage extends StatelessWidget {
                   ),
                 if (ircMessage.tags.containsKey('msg-id') && ircMessage.tags['msg-id'] == 'announcement')
                   Row(
-                    children: const [
-                      Icon(Icons.announcement),
-                      SizedBox(width: 5.0),
-                      Text(
+                    children: [
+                      Icon(
+                        Icons.announcement,
+                        size: defaultBadgeSize * chatStore.settings.badgeScale,
+                      ),
+                      const SizedBox(width: 5.0),
+                      const Text(
                         'Announcement',
                         style: TextStyle(fontWeight: FontWeight.w600),
                       ),
